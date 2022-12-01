@@ -62,6 +62,16 @@ def test_with_braces():
     assert f'hello {{ hi }} {hello}' == 'hello { hi } hello'
 
 
+def test_generating_numbered_format_placeholder():
+    hello = 'hello'
+    assert f'{{0}} {hello}' == '{0} hello'
+
+
+def test_generating_empty_format_placeholder():
+    hello = 'hello'
+    assert f'{{}} {hello}' == '{} hello'
+
+
 def test_strings_quoting_variables():
     assert f'hello {"{x}"}' == 'hello {x}'
     assert f"hello {'{x}'}" == 'hello {x}'

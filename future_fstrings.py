@@ -133,8 +133,14 @@ def _fstring_parse(s, i, level, parts, exprs):
     """Roughly Python/ast.c:fstring_find_literal_and_expr"""
     while True:
         i, parse_expr = _find_literal(s, i, level, parts, exprs)
-        if i == len(s) or s[i] == '}':
+        if i == len(s):
             return i
+        if s[i] == '}':
+            if i + 1 < len(s):
+                if not s[i + 1] == '}':
+                    return i
+            else:
+                return i
         if parse_expr:
             i = _find_expr(s, i, level, parts, exprs)
 
